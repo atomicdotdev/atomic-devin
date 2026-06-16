@@ -1,0 +1,57 @@
+{
+  "target": "~/.codeium/windsurf/hooks.json",
+  "hooks_key": "hooks",
+  "command_prefix": "atomic agent hooks devin",
+  "hooks": {
+    "pre_user_prompt": [
+      {
+        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/prompt_submit.sh\"",
+        "show_output": false
+      }
+    ],
+    "post_cascade_response": [
+      {
+        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/turn_end.sh\"",
+        "show_output": false
+      }
+    ],
+    "post_write_code": [
+      {
+        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/post_tool.sh\"",
+        "show_output": false
+      }
+    ],
+    "post_run_command": [
+      {
+        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/post_tool.sh\"",
+        "show_output": false
+      }
+    ]
+  },
+  "devin_hooks": {
+    "pre_user_prompt": [
+      {
+        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/prompt_submit.sh || true",
+        "show_output": false
+      }
+    ],
+    "post_cascade_response": [
+      {
+        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/turn_end.sh || true",
+        "show_output": false
+      }
+    ],
+    "post_write_code": [
+      {
+        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
+        "show_output": false
+      }
+    ],
+    "post_run_command": [
+      {
+        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
+        "show_output": false
+      }
+    ]
+  }
+}
