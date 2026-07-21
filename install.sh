@@ -61,6 +61,46 @@ else
   echo "    atomic agent enable --hooks \"$MANIFEST\""
 fi
 
+# 1b. Devin CLI lifecycle hooks → ~/.config/devin/config.json
+#     The hooks above target Devin Desktop (Windsurf, ~/.codeium/windsurf).
+#     The Devin *CLI* (`devin`, `devin -p`) reads hooks from the user config's
+#     "hooks" key (or a project `.devin/hooks.v1.json`). Install them at the
+#     user level so every project records turns via `atomic agent hooks devin`.
+#     Events are Claude-style PascalCase; the CLI fires `Stop` per turn and
+#     `SessionEnd` at the end (both drive a recorded change with provenance).
+DEVIN_CLI_CONFIG="$HOME/.config/devin/config.json"
+if command -v python3 &>/dev/null; then
+  mkdir -p "$(dirname "$DEVIN_CLI_CONFIG")"
+  if python3 - "$DEVIN_CLI_CONFIG" <<'PYEOF'
+import json, sys
+path = sys.argv[1]
+try:
+    with open(path) as f:
+        cfg = json.load(f)
+except Exception:
+    cfg = {}
+def hook(verb):
+    return {"matcher": "", "hooks": [{"type": "command",
+            "command": f"test -d .atomic && atomic agent hooks devin {verb} || true"}]}
+cfg["hooks"] = {
+    "SessionStart":     [hook("session-start")],
+    "UserPromptSubmit": [hook("prompt-submit")],
+    "PostToolUse":      [hook("post-tool")],
+    "Stop":             [hook("stop")],
+    "SessionEnd":       [hook("session-end")],
+}
+with open(path, "w") as f:
+    json.dump(cfg, f, indent=2)
+PYEOF
+  then
+    echo "  cli hooks: installed → $DEVIN_CLI_CONFIG"
+  else
+    echo "  cli hooks: FAILED to update $DEVIN_CLI_CONFIG"
+  fi
+else
+  echo "  cli hooks: SKIPPED (python3 not found)"
+fi
+
 # 2. Symlink skills into ~/.codeium/windsurf/skills/
 SKILLS_TARGET="$HOME/.codeium/windsurf/skills"
 mkdir -p "$SKILLS_TARGET"
