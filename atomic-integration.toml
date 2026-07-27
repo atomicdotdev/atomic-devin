@@ -25,5 +25,23 @@ dst = "~/.codeium/windsurf/skills/codebase-context/SKILL.md"
 src = "skills/intent-builder/SKILL.md"
 dst = "~/.codeium/windsurf/skills/intent-builder/SKILL.md"
 
+# Hook scripts invoked by the windsurf hooks (payload enrichment wrappers
+# around `atomic agent hooks devin <verb>`). Executable bit preserved by copy.
+[[file]]
+src = "hooks/scripts/prompt_submit.sh"
+dst = "~/.codeium/windsurf/scripts/prompt_submit.sh"
+
+[[file]]
+src = "hooks/scripts/turn_end.sh"
+dst = "~/.codeium/windsurf/scripts/turn_end.sh"
+
+[[file]]
+src = "hooks/scripts/post_tool.sh"
+dst = "~/.codeium/windsurf/scripts/post_tool.sh"
+
+[[file]]
+src = "hooks/scripts/session_end.sh"
+dst = "~/.codeium/windsurf/scripts/session_end.sh"
+
 [[settings]]
 manifest = "hooks/devin.atomic-hooks.json"

@@ -1,29 +1,29 @@
 {
   "target": "~/.codeium/windsurf/hooks.json",
   "hooks_key": "hooks",
-  "command_prefix": "atomic agent hooks devin",
+  "command_prefix": ".codeium/windsurf/scripts/",
   "hooks": {
     "pre_user_prompt": [
       {
-        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/prompt_submit.sh\"",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash \"$HOME/.codeium/windsurf/scripts/prompt_submit.sh\" || true",
         "show_output": false
       }
     ],
     "post_cascade_response": [
       {
-        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/turn_end.sh\"",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash \"$HOME/.codeium/windsurf/scripts/turn_end.sh\" || true",
         "show_output": false
       }
     ],
     "post_write_code": [
       {
-        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/post_tool.sh\"",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash \"$HOME/.codeium/windsurf/scripts/post_tool.sh\" || true",
         "show_output": false
       }
     ],
     "post_run_command": [
       {
-        "command": "bash \"$(dirname \"$(readlink -f \"$0\" 2>/dev/null || echo \"$0\")\")/scripts/post_tool.sh\"",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash \"$HOME/.codeium/windsurf/scripts/post_tool.sh\" || true",
         "show_output": false
       }
     ]
