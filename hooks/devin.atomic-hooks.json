@@ -31,25 +31,25 @@
   "devin_hooks": {
     "pre_user_prompt": [
       {
-        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/prompt_submit.sh || true",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash {{SCRIPTS_DIR}}/prompt_submit.sh || true",
         "show_output": false
       }
     ],
     "post_cascade_response": [
       {
-        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/turn_end.sh || true",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash {{SCRIPTS_DIR}}/turn_end.sh || true",
         "show_output": false
       }
     ],
     "post_write_code": [
       {
-        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
         "show_output": false
       }
     ],
     "post_run_command": [
       {
-        "command": "test -d .atomic && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
+        "command": "test -d .atomic || test -f .atomic-sandbox && bash {{SCRIPTS_DIR}}/post_tool.sh || true",
         "show_output": false
       }
     ]

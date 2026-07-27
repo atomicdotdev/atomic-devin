@@ -4,6 +4,8 @@
 
 Automatic turn recording with AI provenance, intent tracking, and knowledge graph skills.
 
+> **Definitive source:** this repository lives on Atomic storage at `https://atomic.atomic.storage/workspaces/oss/projects/atomic-devin/code`. The GitHub repo is a mirror.
+
 ## What it does
 
 - **1 session = 1 view** — a draft view is created automatically when Cascade starts
@@ -16,20 +18,31 @@ Automatic turn recording with AI provenance, intent tracking, and knowledge grap
 
 ### Quick start
 
-```bash
-# Clone and install
-git clone https://github.com/atomicdotdev/atomic-devin
-cd atomic-devin
-./install.sh
+Requires the [Atomic VCS](https://atomic.dev) CLI on your PATH. Then:
 
-# Copy the agent prompt into your project
+```bash
+atomic agent enable --agent devin
+```
+
+The enable command syncs the package from Atomic storage and installs it.
+
+Then copy the agent prompt into each project:
+
+```bash
 cp AGENTS.md /path/to/your/project/
 ```
 
-### From npm (once published)
+### Development install
+
+From a local checkout:
 
 ```bash
-npx atomic-devin
+git clone https://github.com/atomicdotdev/atomic-devin
+cd atomic-devin
+atomic agent enable --agent devin --from .
+
+# or the legacy script path:
+./install.sh
 ```
 
 ### What install does
@@ -123,13 +136,12 @@ Cascade session start
 ## Uninstall
 
 ```bash
-npx atomic-devin --uninstall
+atomic agent disable --agent devin
 ```
 
-Or manually:
+For a development checkout, `node install.js --uninstall` works too. Or fully manually:
 
 ```bash
-node install.js --uninstall
 rm ~/.codeium/windsurf/skills/atomic-vault/SKILL.md
 rm ~/.codeium/windsurf/skills/atomic-vcs/SKILL.md
 rm ~/.codeium/windsurf/skills/code-intelligence/SKILL.md

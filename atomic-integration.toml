@@ -1,0 +1,29 @@
+schema = 1
+agent = "devin"
+version = "1.0.0"
+
+[requires]
+atomic = ">=0.11.0"
+
+[[file]]
+src = "skills/atomic-vault/SKILL.md"
+dst = "~/.codeium/windsurf/skills/atomic-vault/SKILL.md"
+
+[[file]]
+src = "skills/atomic-vcs/SKILL.md"
+dst = "~/.codeium/windsurf/skills/atomic-vcs/SKILL.md"
+
+[[file]]
+src = "skills/code-intelligence/SKILL.md"
+dst = "~/.codeium/windsurf/skills/code-intelligence/SKILL.md"
+
+[[file]]
+src = "skills/codebase-context/SKILL.md"
+dst = "~/.codeium/windsurf/skills/codebase-context/SKILL.md"
+
+[[file]]
+src = "skills/intent-builder/SKILL.md"
+dst = "~/.codeium/windsurf/skills/intent-builder/SKILL.md"
+
+[[settings]]
+manifest = "hooks/devin.atomic-hooks.json"
